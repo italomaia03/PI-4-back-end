@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  soma_app_db:
+    container_name: agendamento-db
+    image: postgres:16.2-alpine3.19
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "somar"
+      PG_DATA: "/data/postgres"
+    volumes:
+      - "./infra/postgres:/data/postgres"
+    ports:
+      - "63000:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+networks:
+  postgres:
+    driver: bridge
+volumes:
+  data:
+
