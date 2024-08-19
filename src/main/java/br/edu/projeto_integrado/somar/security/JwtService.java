@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -20,13 +20,22 @@ public class JwtService {
 
     @Value("${jwt.secret}")
     private String secret;
+    private final LocalDateTime ACCESS_TOKEN_EXPIRATION = LocalDateTime.now().plusMinutes(10);
+    private final LocalDateTime REFRESH_TOKEN_EXPIRATION = LocalDateTime.now().plusMinutes(30);
 
-    public String generateToken(UserDetails user) {
-        var now = LocalDateTime.now();
+    public String generateAccessToken(UserDetails user, Map<String, Object> extraClaims) {
         return Jwts.builder()
-                .claims(new HashMap<>())
+                .claims(extraClaims)
                 .subject(user.getUsername())
-                .expiration(convertFromLocalDateTime(now.plusHours(1L)))
+                .expiration(convertFromLocalDateTime(this.ACCESS_TOKEN_EXPIRATION))
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    public String generateRefreshToken(UserDetails user) {
+        return Jwts.builder()
+                .subject(user.getUsername())
+                .expiration(convertFromLocalDateTime(this.REFRESH_TOKEN_EXPIRATION))
                 .signWith(getSigningKey())
                 .compact();
     }
