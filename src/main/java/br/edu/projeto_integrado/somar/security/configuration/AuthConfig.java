@@ -1,6 +1,6 @@
 package br.edu.projeto_integrado.somar.security.configuration;
 
-import br.edu.projeto_integrado.somar.exception.UserNotFoundException;
+import br.edu.projeto_integrado.somar.exceptions.UserNotFoundException;
 import br.edu.projeto_integrado.somar.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +16,6 @@ public class AuthConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> this.userRepository.findByEmail(username).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return username -> this.userRepository.findByEmail(username).orElseThrow(UserNotFoundException::new);
     }
 }
