@@ -1,6 +1,6 @@
 package br.edu.projeto_integrado.somar.security;
 
-import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,13 +37,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
-        try{
+        try {
             jwt = authHeader.substring(7);
             authenticateUserFromToken(request, jwt);
             filterChain.doFilter(request, response);
-        } catch (ExpiredJwtException e) {
+        } catch (JwtException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(e.getMessage());
         }
     }
 
