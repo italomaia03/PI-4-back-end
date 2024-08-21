@@ -1,0 +1,39 @@
+services:
+  somar_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: projeto-integrado-iv-api
+    depends_on:
+      - soma_app_db
+    environment:
+      SPRING_PROFILES_ACTIVE: ${PROFILE}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      DB_URL: jdbc:postgresql://somar_app_db:5432/${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "9090:8080"
+    networks:
+      - postgres
+  soma_app_db:
+    container_name: somar_app_db
+    image: postgres:16.2-alpine3.19
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      PG_DATA: "/data/postgres"
+    volumes:
+      - "./infra/postgres:/data/postgres"
+    ports:
+      - "63000:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+networks:
+  postgres:
+    driver: bridge
+volumes:
+  data:
+
