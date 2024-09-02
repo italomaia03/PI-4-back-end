@@ -2,6 +2,7 @@ package br.edu.projeto_integrado.somar.services.auth;
 
 import br.edu.projeto_integrado.somar.dtos.auth.SignUpRequest;
 import br.edu.projeto_integrado.somar.dtos.auth.SignUpResponse;
+import br.edu.projeto_integrado.somar.entities.Inventory;
 import br.edu.projeto_integrado.somar.entities.Role;
 import br.edu.projeto_integrado.somar.entities.User;
 import br.edu.projeto_integrado.somar.repositories.UserRepository;
@@ -26,6 +27,7 @@ public class SignUpService {
 
     private User mapToUser(SignUpRequest signUpRequest) {
         var user = new User();
+        var inventory = new Inventory();
         var uuid = UUID.randomUUID();
         var password = encryptPassword(signUpRequest.getPassword());
         user.setUuid(uuid);
@@ -35,7 +37,7 @@ public class SignUpService {
         user.setLastName(signUpRequest.getLastName());
         user.setActive(true);
         user.setRole(Role.USER);
-        return user;
+        return user.setInventory(inventory);
     }
 
     private String encryptPassword(String password) {
