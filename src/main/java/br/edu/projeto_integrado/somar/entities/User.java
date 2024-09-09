@@ -8,15 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 @SQLRestriction("is_active = true")
 public class User extends BaseEntity implements UserDetails {
 
-    @Column(nullable = false)
-    private UUID uuid;
     @Column(unique=true, nullable = false)
     private String email;
     @Column(nullable = false)
@@ -29,6 +26,13 @@ public class User extends BaseEntity implements UserDetails {
     private Boolean isActive;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+
+    @OneToOne(
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    private Inventory inventory;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -72,10 +76,6 @@ public class User extends BaseEntity implements UserDetails {
         return this.isActive;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -86,10 +86,6 @@ public class User extends BaseEntity implements UserDetails {
 
     public Role getRole() {
         return role;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 
     public void setEmail(String email) {
@@ -114,6 +110,22 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public User setInventory(Inventory inventory) {
+        if (inventory == null) {
+            if (this.inventory != null) {
+                this.inventory.setUser(null);
+            }
+        } else {
+            inventory.setUser(this);
+        }
+        this.inventory = inventory;
+        return this;
     }
 }
 
