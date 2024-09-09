@@ -1,4 +1,4 @@
-package br.edu.projeto_integrado.somar.service.auth;
+package br.edu.projeto_integrado.somar.services.auth;
 
 import br.edu.projeto_integrado.somar.dtos.auth.SignOutRequest;
 import br.edu.projeto_integrado.somar.entities.Token;
