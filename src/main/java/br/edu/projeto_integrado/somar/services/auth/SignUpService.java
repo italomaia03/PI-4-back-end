@@ -33,7 +33,7 @@ public class SignUpService {
         user.setUuid(uuid);
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(password);
-        user.setFirstName(signUpRequest.getFirsName());
+        user.setFirstName(signUpRequest.getFirstName());
         user.setLastName(signUpRequest.getLastName());
         user.setActive(true);
         user.setRole(Role.USER);
