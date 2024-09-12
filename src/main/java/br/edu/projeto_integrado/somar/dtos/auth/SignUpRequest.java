@@ -11,7 +11,7 @@ public class SignUpRequest {
             message = "A senha deve conter de 8 a 20 caracteres (lowercase, uppercase, numbers, special(_,*,#,@))")
     private String password;
     @Pattern(regexp = "^[\\p{L}]+$", message = "O nome deve conter apenas caracteres alfabéticos.")
-    private String firsName;
+    private String firstName;
     @Pattern(regexp = "^[\\p{L}]+$", message = "O nome deve conter apenas caracteres alfabéticos.")
     private String lastName;
 
@@ -19,31 +19,15 @@ public class SignUpRequest {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirsName() {
-        return firsName;
-    }
-
-    public void setFirsName(String firsName) {
-        this.firsName = firsName;
+    public String getFirstName() {
+        return firstName;
     }
 
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 }
