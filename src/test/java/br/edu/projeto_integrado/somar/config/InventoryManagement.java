@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Component
 public class InventoryManagement {
@@ -41,6 +42,29 @@ public class InventoryManagement {
 
             batchRepository.save(batch);
         }
+    }
+
+    public void createKnownProduct(Inventory inventory) {
+        Batch batch = new Batch();
+        batch.setBarcode("BARCODE");
+        batch.setBestBefore(LocalDate.now().plusMonths(1));
+        batch.setAmount(100);
+        batch.setDamaged(false);
+        batch.setInventory(inventory);
+
+        var productUuid = UUID.fromString("6bba5a73-34a9-452a-80d3-5f68a4b68c8f");
+        Product product = new Product();
+        product.setUuid(productUuid);
+        product.setName("Product Test");
+        product.setDamaged(false);
+        product.setImage("image.png");
+        product.setSellingPrice(BigDecimal.valueOf(100));
+        product.setBuyingPrice(BigDecimal.valueOf(50));
+        product.setBatch(batch);
+
+        batch.setProduct(product);
+
+        batchRepository.save(batch);
     }
 }
 

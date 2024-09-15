@@ -25,6 +25,7 @@ public class UserManagementExtension implements BeforeAllCallback {
 
         var user = registerUser(userRepository, encoder);
         inventoryManagement.createBatchesAndProducts(user.getInventory());
+        inventoryManagement.createKnownProduct(user.getInventory());
 
         userToken = jwtService.generateAccessToken(user);
     }
