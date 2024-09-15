@@ -23,7 +23,7 @@ public class Product extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "batch_id")
     private Batch batch;
 
     public String getName() {
@@ -73,5 +73,17 @@ public class Product extends BaseEntity {
 
     public void setBuyingPrice(BigDecimal buyingPrice) {
         this.buyingPrice = buyingPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", isDamaged=" + isDamaged +
+                ", image='" + image + '\'' +
+                ", sellingPrice=" + sellingPrice +
+                ", buyingPrice=" + buyingPrice +
+                ", batch=" + batch +
+                '}';
     }
 }

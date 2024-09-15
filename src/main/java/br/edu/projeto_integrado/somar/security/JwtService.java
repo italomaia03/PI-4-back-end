@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -26,6 +27,15 @@ public class JwtService {
     public String generateAccessToken(UserDetails user, Map<String, Object> extraClaims) {
         return Jwts.builder()
                 .claims(extraClaims)
+                .subject(user.getUsername())
+                .expiration(convertFromLocalDateTime(this.ACCESS_TOKEN_EXPIRATION))
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    public String generateAccessToken(UserDetails user) {
+        return Jwts.builder()
+                .claims(new HashMap<>())
                 .subject(user.getUsername())
                 .expiration(convertFromLocalDateTime(this.ACCESS_TOKEN_EXPIRATION))
                 .signWith(getSigningKey())
