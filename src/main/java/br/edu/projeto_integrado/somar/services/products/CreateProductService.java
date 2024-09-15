@@ -1,17 +1,16 @@
 package br.edu.projeto_integrado.somar.services.products;
 
 import br.edu.projeto_integrado.somar.dtos.product.create.request.BatchRequestDto;
-import br.edu.projeto_integrado.somar.dtos.product.create.request.ProductRequestDto;
 import br.edu.projeto_integrado.somar.dtos.product.create.request.CreateProductRequestDto;
+import br.edu.projeto_integrado.somar.dtos.product.create.request.ProductRequestDto;
 import br.edu.projeto_integrado.somar.dtos.product.create.response.BatchResponseDto;
 import br.edu.projeto_integrado.somar.dtos.product.create.response.CreateProductResponseDto;
 import br.edu.projeto_integrado.somar.dtos.product.create.response.ProductResponseDto;
 import br.edu.projeto_integrado.somar.entities.Batch;
 import br.edu.projeto_integrado.somar.entities.Inventory;
 import br.edu.projeto_integrado.somar.entities.Product;
-import br.edu.projeto_integrado.somar.exceptions.UserNotFoundException;
 import br.edu.projeto_integrado.somar.repositories.BatchRepository;
-import br.edu.projeto_integrado.somar.repositories.UserRepository;
+import br.edu.projeto_integrado.somar.services.inventory.GetInventoryService;
 import org.springframework.stereotype.Service;
 
 
@@ -19,17 +18,15 @@ import org.springframework.stereotype.Service;
 public class CreateProductService {
 
     private final BatchRepository batchRepository;
-    private final UserRepository userRepository;
+    private final GetInventoryService getInventoryService;
 
-    public CreateProductService(BatchRepository batchRepository, UserRepository userRepository) {
+    public CreateProductService(BatchRepository batchRepository, GetInventoryService getInventoryService) {
         this.batchRepository = batchRepository;
-        this.userRepository = userRepository;
+        this.getInventoryService = getInventoryService;
     }
 
     public CreateProductResponseDto execute(CreateProductRequestDto dto, String username) {
-        var user = this.userRepository.findByEmail(username).orElseThrow(UserNotFoundException::new);
-
-        var inventory = user.getInventory();
+        var inventory = getInventoryService.execute(username);
         var batch = this.batchRepository
                 .findByBarcode(dto.getBatch().getBarcode());
         var product = mapToProduct(dto.getProduct());
