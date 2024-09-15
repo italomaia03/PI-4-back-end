@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/products")
-public class ProductsController {
+public class RegisterProductController {
 
     private final CreateProductService createProductService;
 
-    public ProductsController(CreateProductService createProductService) {
+    public RegisterProductController(CreateProductService createProductService) {
         this.createProductService = createProductService;
     }
 
