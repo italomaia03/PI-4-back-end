@@ -74,7 +74,7 @@ public class InventoryController {
         params.setMinBuyingPrice(minBuyingPrice);
         params.setMaxBuyingPrice(maxBuyingPrice);
         params.setExpired(isExpired);
-        params.setExpired(isDamaged);
+        params.setDamaged(isDamaged);
         return params;
     }
 }

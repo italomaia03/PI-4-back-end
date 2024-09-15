@@ -5,8 +5,6 @@ import br.edu.projeto_integrado.somar.dtos.inventory.GetInventoryShowcaseRespons
 import br.edu.projeto_integrado.somar.entities.Product;
 import br.edu.projeto_integrado.somar.repositories.ProductRepository;
 import br.edu.projeto_integrado.somar.specifications.ProductSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,7 +16,6 @@ import java.util.List;
 @Service
 public class GetInventoryShowcaseService {
 
-    private static final Logger log = LoggerFactory.getLogger(GetInventoryShowcaseService.class);
     private final GetInventoryService getInventoryService;
     private final ProductRepository productRepository;
 
@@ -61,6 +58,9 @@ public class GetInventoryShowcaseService {
         if (params.getMinBuyingPrice() != null || params.getMaxBuyingPrice() != null) {
             specs = specs.and(ProductSpecification.hasBuyingPriceBetween(params.getMinBuyingPrice(),
                     params.getMaxBuyingPrice()));
+        }
+        if (params.getIsExpired() != null) {
+            specs = specs.and(ProductSpecification.isExpired(params.getIsExpired()));
         }
 
         return specs;
