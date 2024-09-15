@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class ProductSpecification {
 
@@ -78,5 +79,9 @@ public class ProductSpecification {
             Join<Product, Batch> batchJoin = root.join(Product_.BATCH);
             return cb.equal(batchJoin.get(Batch_.INVENTORY), inventory);
         };
+    }
+
+    public static Specification<Product> hasUuid (final UUID uuid) {
+        return (root, query, cb) -> cb.equal(root.get(Product_.UUID), uuid);
     }
 }
