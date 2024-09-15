@@ -1,4 +1,4 @@
-package br.edu.projeto_integrado.somar.controllers;
+package br.edu.projeto_integrado.somar.controllers.inventory;
 
 import br.edu.projeto_integrado.somar.config.UserManagementExtension;
 import jakarta.transaction.Transactional;
