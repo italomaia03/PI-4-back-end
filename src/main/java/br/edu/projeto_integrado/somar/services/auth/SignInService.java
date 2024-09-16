@@ -2,6 +2,7 @@ package br.edu.projeto_integrado.somar.services.auth;
 
 import br.edu.projeto_integrado.somar.dtos.auth.SignInRequest;
 import br.edu.projeto_integrado.somar.dtos.auth.SignInResponse;
+import br.edu.projeto_integrado.somar.dtos.auth.UserLoginResponse;
 import br.edu.projeto_integrado.somar.entities.Token;
 import br.edu.projeto_integrado.somar.entities.User;
 import br.edu.projeto_integrado.somar.repositories.TokenRepository;
@@ -32,7 +33,16 @@ public class SignInService {
         SecurityContextHolder.getContext().setAuthentication(auth);
         var user = (User) auth.getPrincipal();
         var token = generateToken(user);
-        return new SignInResponse(token.getAccessToken(), token.getRefreshToken());
+        return new SignInResponse(
+                token.getAccessToken(),
+                token.getRefreshToken(),
+                new UserLoginResponse(
+                        user.getUuid(),
+                        user.getFirstName(),
+                        user.getUsername(),
+                        user.getImage()
+                )
+        );
     }
 
     private Token generateToken(User user) {
