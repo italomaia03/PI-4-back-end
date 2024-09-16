@@ -43,7 +43,7 @@ public class AuthController {
 
     @PostMapping("/refresh-token")
     @ResponseStatus(HttpStatus.OK)
-    public SignInResponse refreshToken(@RequestBody SignOutRequest request) {
+    public RefreshTokenResponse refreshToken(@RequestBody SignOutRequest request) {
         return this.refreshTokenService.execute(request);
     }
 
