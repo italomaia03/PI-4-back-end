@@ -1,4 +1,4 @@
-package br.edu.projeto_integrado.somar.config;
+package br.edu.projeto_integrado.somar.util;
 
 import br.edu.projeto_integrado.somar.entities.Batch;
 import br.edu.projeto_integrado.somar.entities.Inventory;
@@ -15,6 +15,7 @@ import java.util.UUID;
 public class InventoryManagement {
 
     private final BatchRepository batchRepository;
+    private UUID productUuid;
 
     @Autowired
     public InventoryManagement(BatchRepository batchRepository) {
@@ -52,7 +53,7 @@ public class InventoryManagement {
         batch.setDamaged(false);
         batch.setInventory(inventory);
 
-        var productUuid = UUID.fromString("6bba5a73-34a9-452a-80d3-5f68a4b68c8f");
+        productUuid = UUID.fromString("6bba5a73-34a9-452a-80d3-5f68a4b68c8f");
         Product product = new Product();
         product.setUuid(productUuid);
         product.setName("Product Test");
@@ -65,6 +66,10 @@ public class InventoryManagement {
         batch.setProduct(product);
 
         batchRepository.save(batch);
+    }
+
+    public UUID getProductUuid() {
+        return productUuid;
     }
 }
 
