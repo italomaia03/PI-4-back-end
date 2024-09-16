@@ -1,6 +1,6 @@
 package br.edu.projeto_integrado.somar.controllers.product;
 
-import br.edu.projeto_integrado.somar.config.UserManagementExtension;
+import br.edu.projeto_integrado.somar.extensions.UserManagementExtension;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

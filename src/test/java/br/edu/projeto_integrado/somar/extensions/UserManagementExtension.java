@@ -1,9 +1,10 @@
-package br.edu.projeto_integrado.somar.config;
+package br.edu.projeto_integrado.somar.extensions;
 
 import br.edu.projeto_integrado.somar.entities.Inventory;
 import br.edu.projeto_integrado.somar.entities.User;
 import br.edu.projeto_integrado.somar.repositories.UserRepository;
 import br.edu.projeto_integrado.somar.security.JwtService;
+import br.edu.projeto_integrado.somar.util.InventoryManagement;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
