@@ -19,7 +19,7 @@ public class RegisterProductController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public CreateProductResponseDto createProduct(@RequestBody CreateProductRequestDto createProductRequestDto,
                                                   Authentication authentication) {
 
