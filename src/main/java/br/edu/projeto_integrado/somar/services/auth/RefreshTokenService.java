@@ -1,7 +1,7 @@
 package br.edu.projeto_integrado.somar.services.auth;
 
+import br.edu.projeto_integrado.somar.dtos.auth.RefreshTokenResponse;
 import br.edu.projeto_integrado.somar.dtos.auth.SignOutRequest;
-import br.edu.projeto_integrado.somar.dtos.auth.SignInResponse;
 import br.edu.projeto_integrado.somar.entities.Token;
 import br.edu.projeto_integrado.somar.exceptions.TokenNotFoundException;
 import br.edu.projeto_integrado.somar.repositories.TokenRepository;
@@ -20,11 +20,11 @@ public class RefreshTokenService {
         this.tokenRepository = tokenRepository;
     }
 
-    public SignInResponse execute(SignOutRequest request) {
+    public RefreshTokenResponse execute(SignOutRequest request) {
         var token =
                 this.tokenRepository.findByRefreshToken(request.refreshToken()).orElseThrow(TokenNotFoundException::new);
         var newToken = generateNewToken(token);
-        return new SignInResponse(newToken.getAccessToken(), newToken.getRefreshToken());
+        return new RefreshTokenResponse(newToken.getAccessToken(), newToken.getRefreshToken());
     }
 
     private Token generateNewToken(Token token) {

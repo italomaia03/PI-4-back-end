@@ -5,7 +5,6 @@ import br.edu.projeto_integrado.somar.entities.Token;
 import br.edu.projeto_integrado.somar.entities.User;
 import br.edu.projeto_integrado.somar.repositories.TokenRepository;
 import br.edu.projeto_integrado.somar.security.JwtService;
-import br.edu.projeto_integrado.somar.services.auth.RefreshTokenService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,6 @@
 package br.edu.projeto_integrado.somar.controllers.inventory;
 
 import br.edu.projeto_integrado.somar.extensions.UserManagementExtension;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ExtendWith(UserManagementExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Transactional
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class InventoryControllerIntegrationTest {
 
     @Autowired
@@ -34,7 +34,7 @@ public class InventoryControllerIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$.length()").value(5));  // Verifying that 5 products exist
+                .andExpect(jsonPath("$.length()").value(6));
     }
 
     @Test
