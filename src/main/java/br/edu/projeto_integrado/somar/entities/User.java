@@ -26,6 +26,7 @@ public class User extends BaseEntity implements UserDetails {
     private Boolean isActive;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private String image;
 
 
     @OneToOne(
@@ -126,6 +127,14 @@ public class User extends BaseEntity implements UserDetails {
         }
         this.inventory = inventory;
         return this;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
 
