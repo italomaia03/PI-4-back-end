@@ -1,6 +1,6 @@
 package br.edu.projeto_integrado.somar.controllers.inventory;
 
-import br.edu.projeto_integrado.somar.config.UserManagementExtension;
+import br.edu.projeto_integrado.somar.extensions.UserManagementExtension;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
