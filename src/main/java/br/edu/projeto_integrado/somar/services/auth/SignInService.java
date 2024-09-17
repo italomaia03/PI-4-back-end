@@ -38,8 +38,8 @@ public class SignInService {
                 token.getRefreshToken(),
                 new UserLoginResponse(
                         user.getUuid(),
-                        user.getFirstName(),
                         user.getUsername(),
+                        user.getFirstName(),
                         user.getImage()
                 )
         );
